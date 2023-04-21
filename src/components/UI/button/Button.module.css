@@ -1,0 +1,16 @@
+.btn {
+  padding: 10px;
+  height: auto;
+  border: 2px solid rgb(83, 73, 40);
+  border-radius: 5px;
+  color: rgb(61, 57, 42);
+  background-color: rgb(181, 173, 66);
+  cursor: pointer;
+  transition-duration: 0.2s;
+}
+
+.btn:hover {
+  color: rgb(181, 173, 66);
+  background-color: rgb(61, 57, 42);
+  box-shadow: 0px 5px 8px;
+}

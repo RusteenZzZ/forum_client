@@ -1,0 +1,7 @@
+.hLine {
+  height: 10px;
+  width: 100%;
+  background-color: rgb(119, 107, 51);
+  border: none;
+  border-radius: 5px;
+}

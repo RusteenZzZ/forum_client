@@ -1,0 +1,12 @@
+.navbar {
+  width: 100%;
+  padding: 20px 50px;
+  height: 130px;
+  background-color: rgb(119, 107, 51);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.navbar_btn {
+  margin: 10px;
+}
