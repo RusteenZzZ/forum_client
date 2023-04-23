@@ -1,9 +1,11 @@
 import React, { FC, useContext, useState } from 'react'
 
 import styles from './RegisterForm.module.css'
-import Input from '../UI/textInput/Input'
+import Input from '../UI/text-input/Input'
 import Button from '../UI/button/Button'
 import { Context } from '../..'
+import { useLoading } from '../../hooks/useLoading'
+import Loader from '../loader/Loader'
 
 interface RegisterData {
   email: string
@@ -34,6 +36,16 @@ const RegisterForm: FC = () => {
     setRegisterData({...registerData, password: e.target.value})
   }
 
+  const register = async () => {
+    await store.register(
+      registerData.email,
+      registerData.username,
+      registerData.password
+    )
+  }
+
+  const {loading, isLoading, error} = useLoading(register)
+
   return (
     <div className={styles.registerForm}>
       <div className={styles.registerItem}>
@@ -61,14 +73,15 @@ const RegisterForm: FC = () => {
       <div className={styles.registerItem}>
         <Button
           text='Register!'
-          onClick={() =>
-              store.register(
-                registerData.email,
-                registerData.username,
-                registerData.password
-              )
-          }
+          onClick={loading}
         />
+        {
+          isLoading
+            ?
+              <Loader/>
+            :
+              <></>
+        }
       </div>
     </div>
   )

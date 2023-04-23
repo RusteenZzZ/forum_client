@@ -6,7 +6,7 @@ import { Context } from '../..'
 import { privateRoutes, publicRoutes, commonRoutes } from '../../routes'
 
 const AppRouter: FC = () => {
-  const {store} = useContext(Context)
+  const {store} = useContext(Context)  
 
   useEffect(() => {
     store.validateToken()
@@ -14,7 +14,7 @@ const AppRouter: FC = () => {
   
   return (
     store.getIsAuth()
-      ? 
+      ?
         <Routes>
           {
             privateRoutes.concat(commonRoutes).map((route, index) =>         
@@ -23,7 +23,7 @@ const AppRouter: FC = () => {
           }
           <Route path="*" element={<Navigate to="/forums"/>}/>
         </Routes>
-      : 
+      :
         <Routes>
           {
             publicRoutes.concat(commonRoutes).map((route, index) =>

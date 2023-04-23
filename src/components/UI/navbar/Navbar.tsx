@@ -25,6 +25,7 @@ const Navbar: FC = () => {
 
   const logout = () => {
     store.logout()
+    navigate(ENTRY_PATH)
   }
 
   return (

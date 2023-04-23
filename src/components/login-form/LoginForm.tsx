@@ -1,10 +1,12 @@
 import React, { FC, useContext, useState } from 'react'
 
 import styles from './LoginForm.module.css'
-import Input from '../UI/textInput/Input'
+import Input from '../UI/text-input/Input'
 import Button from '../UI/button/Button'
 import { observer } from 'mobx-react-lite'
 import { Context } from '../..'
+import { useLoading } from '../../hooks/useLoading'
+import Loader from '../loader/Loader'
 
 interface LoginData {
   email: string
@@ -24,10 +26,13 @@ const LoginForm: FC = () => {
     setLoginData({...loginData, password: e.target.value})
   }
 
-  const login = () => {
-    store.login(loginData.email, loginData.password)
+  const login = async () => {
+    await store.login(loginData.email, loginData.password)    
   }
 
+  const {loading, isLoading, error} = useLoading(login)
+  console.log(isLoading);
+  
   return (
     <div className={styles.loginForm}>
       <div className={styles.loginItem}>
@@ -46,7 +51,15 @@ const LoginForm: FC = () => {
         />
       </div>
       <div className={styles.loginItem}>
-        <Button text='Login!' onClick={login}/>
+        <Button text='Login!' onClick={loading}/>
+        {
+          isLoading
+            ?
+              <Loader/>
+            :
+              <></>
+        }
+        {/* <Loader/> */}
       </div>
     </div>
   )

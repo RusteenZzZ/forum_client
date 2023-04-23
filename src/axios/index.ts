@@ -12,12 +12,14 @@ const LOGIN_URL = '/users/login'
 const CHECK_AUTH_URL = '/users/check-auth'
 
 api.interceptors.request.use(async (config) => {
-  console.log(config.url)
+  config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
+  
   if(config.url !== REGISTER_URL && config.url !== LOGIN_URL && config.url !== CHECK_AUTH_URL) {
-    console.log('Here!')
-
-    config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
-    const tokenResponse = await axios.get<GetTokenResponse>(`${API_URL}/tokens`)
+    const tokenResponse = await axios.get<GetTokenResponse>(`${API_URL}/tokens`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    })
     localStorage.setItem('token', tokenResponse.data.token)
   }
   return config

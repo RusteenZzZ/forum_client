@@ -1,4 +1,5 @@
 import { AxiosResponse } from "axios";
+
 import api from "../axios"
 import RegisterRequest from "../models/request/RegisterRequest"
 import RegisterResponse from "../models/response/RegisterResponse";
@@ -21,10 +22,6 @@ class UserService {
   async checkAuth(checkAuthData: CheckAuthRequest): Promise<AxiosResponse<CheckAuthResponse>> {
     const response = await api.post("/users/check-auth", checkAuthData)
     return response
-  }
-
-  async logout() {
-
   }
 }
 

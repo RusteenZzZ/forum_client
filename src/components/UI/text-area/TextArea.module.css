@@ -1,0 +1,15 @@
+.textArea {
+  padding: 10px;
+  width: 250px;
+  height: 150px;
+  resize: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 3px solid rgb(32, 29, 16);
+  background-color: rgb(233, 208, 125);
+}
+
+.textArea:focus {
+  outline: none;
+}

@@ -1,0 +1,8 @@
+.messageCreateFormItem {
+  margin: 10px
+}
+
+.messageCreateBtn {
+  display: flex;
+  flex-direction: row;
+}
