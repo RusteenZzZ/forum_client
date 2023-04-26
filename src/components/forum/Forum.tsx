@@ -10,6 +10,7 @@ import MessageCreateForm from '../message-create-form/MessageCreateForm'
 import Message from '../message/Message'
 import HorizontalLine from '../horizontal-line/HorizontalLine'
 import styles from './Forum.module.css'
+import Modal from '../UI/modal/Modal'
 
 interface ForumProps {
   forumId: string
@@ -19,6 +20,8 @@ const Forum: FC<ForumProps> = ({forumId}) => {
   const [forum, setForum] = useState<IForumInfo>({} as IForumInfo)
   const [messages, setMessages] = useState<IMessage[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [isVisible, setIsVisible] = useState<boolean>(false)
+  const [repliedMessageId, setRepliedMessageId] = useState<string>('')
 
   const getForumDetails = async () => {
     const response = await ForumService.getForumDetails({forumId})
@@ -33,6 +36,9 @@ const Forum: FC<ForumProps> = ({forumId}) => {
     getForumDetails()
   }, [])
 
+  const replyClickHandler = () => {
+    setIsVisible(true)
+  }
 
   return (
     <>
@@ -47,19 +53,33 @@ const Forum: FC<ForumProps> = ({forumId}) => {
               <div className={styles.messages}>
                 <Container>
                   {
-                    messages.map((message, index) =>
-                      <>
-                        <Message message={message}/>
-                        {
-                          index !== messages.length - 1
-                            ? <HorizontalLine/>
-                            : <></>
-                        }
-                      </>
-                    )
+                    messages.length > 0
+                      ?
+                        messages.map((message, index) =>
+                          <>
+                            <Message
+                              message={message}
+                              replyClickHandler={replyClickHandler}
+                            />
+                            {
+                              index !== messages.length - 1
+                                ? <HorizontalLine/>
+                                : <></>
+                            }
+                          </>
+                        )
+                      :
+                        <span>
+                          No replies yet...
+                        </span>
                   }
                 </Container>
               </div>
+              {
+                isVisible
+                  ? <Modal setIsVisible={setIsVisible}/>
+                  : <></>
+              }
             </>
       }
     </>

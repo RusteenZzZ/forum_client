@@ -4,3 +4,11 @@
   border-radius: 8px;
   margin-top: 5px;
 }
+
+.btns {
+  display: flex;
+}
+
+.btn {
+  margin: 0px 3px;
+}
