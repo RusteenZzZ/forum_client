@@ -74,7 +74,7 @@ const MessageReplies: FC = () => {
               </Container>
               {
                 isVisible
-                  ? <Modal setIsVisible={setIsVisible} reply={replyToMainMessage} toMessageId={mainMessage.id}/>
+                  ? <Modal setIsVisible={setIsVisible} reply={replyToMainMessage} toMessageId={mainMessage.id} updateMessages={setReplyList}/>
                   : <></>
               }
             </>

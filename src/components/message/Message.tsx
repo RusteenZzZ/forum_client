@@ -15,10 +15,7 @@ const Message: FC<MessageProps> = ({message, replyClickHandler}) => {
   const navigate = useNavigate()
   const params = useParams()
   
-  const viewRepliesClickHandler = () => {
-    console.log(params);
-    console.log(message.id);
-    
+  const viewRepliesClickHandler = () => {    
     navigate(`/forums/${params.forumId}/${message.id}`)
   }
 

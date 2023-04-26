@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import IMessage from '../../models/IMessage'
 import Message from '../message/Message'
@@ -16,6 +17,9 @@ interface MessageListProps {
 const MessageList: FC<MessageListProps> = ({messages}) => {
   const [isVisible, setIsVisible] = useState<boolean>(false)
   const [repliedMessageId, setRepliedMessageId] = useState<string>('')
+
+  const params = useParams()
+  const navigate = useNavigate()
   
   const replyClickHandler = (messageId: string) => {   
     setRepliedMessageId(messageId)
@@ -24,6 +28,9 @@ const MessageList: FC<MessageListProps> = ({messages}) => {
 
   const replyOnMessageHandler = async ({text, toMessage} : CreateMessageRequest) => {
     await MessageService.createMessage({text, toMessage})
+    
+    if(params.forumId)
+      navigate(`/forums/${params.forumId}/${toMessage}`)
   }
 
   return (

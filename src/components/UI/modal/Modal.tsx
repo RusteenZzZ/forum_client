@@ -6,14 +6,18 @@ import InnerContainer from '../../inner-container/InnerContainer'
 import Input from '../text-input/Input'
 import Button from '../button/Button'
 import CreateMessageRequest from '../../../models/request/CreateMessageRequest'
+import IMessage from '../../../models/IMessage'
+import MessageService from '../../../services/MessageService'
 
 interface ModalProps {
   setIsVisible: (arg: boolean) => any
   reply: (arg: CreateMessageRequest) => Promise<any>
   toMessageId: string
+  updateMessages?: (arg: IMessage[]) => any
+  navigate?: () => any
 }
 
-const Modal: FC<ModalProps> = ({setIsVisible, reply, toMessageId}) => {
+const Modal: FC<ModalProps> = ({setIsVisible, reply, toMessageId, updateMessages = null, navigate = null}) => {
   const [replyText, setReplyText] = useState<string>('')  
 
   const replyChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,6 +34,13 @@ const Modal: FC<ModalProps> = ({setIsVisible, reply, toMessageId}) => {
 
   const clickOnReplyBtnHandler = async () => {
     await reply({text: replyText, toMessage: toMessageId})
+    if(updateMessages) {
+      const response = await MessageService.getMessageReplies({messageId: toMessageId})
+      if(response)
+        updateMessages(response.data)
+    }
+    if(navigate)
+      navigate()
     setIsVisible(false)
   }
     
