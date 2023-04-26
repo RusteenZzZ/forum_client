@@ -8,6 +8,8 @@ import Loader from '../loader/Loader'
 import ForumDescription from '../forum-description/ForumDescription'
 import MessageCreateForm from '../message-create-form/MessageCreateForm'
 import Message from '../message/Message'
+import HorizontalLine from '../horizontal-line/HorizontalLine'
+import styles from './Forum.module.css'
 
 interface ForumProps {
   forumId: string
@@ -42,13 +44,22 @@ const Forum: FC<ForumProps> = ({forumId}) => {
             <>
               <ForumDescription forum={forum}/>
               <MessageCreateForm updateMessages={setMessages} forumId={forum.id}/>
-              {
-                messages.map(message =>
-                  <Container>
-                    <Message message={message}/>
-                  </Container>
-                )
-              }
+              <div className={styles.messages}>
+                <Container>
+                  {
+                    messages.map((message, index) =>
+                      <>
+                        <Message message={message}/>
+                        {
+                          index !== messages.length - 1
+                            ? <HorizontalLine/>
+                            : <></>
+                        }
+                      </>
+                    )
+                  }
+                </Container>
+              </div>
             </>
       }
     </>

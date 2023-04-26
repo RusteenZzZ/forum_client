@@ -30,30 +30,32 @@ const ForumList: FC = () => {
       <Container>
         <ForumCreateForm/>
       </Container>
-      <Container>
-        {
-          isLoading
-            ?
-              <Loader/>
-            :
-              (
-                forumList.length === 0
-                ?
-                  <span>No forums yet...</span>
-                :
-                  forumList.map(forum =>
-                    <div key={forum.id} className={styles.forum_list_item}>
-                      <ForumInfo
-                        id={forum.id}
-                        topic={forum.topic}
-                        creator={forum.creator}
-                        creatorUsername={forum.creatorUsername}
-                      />
-                    </div>
-              )
-          )
-        }
-      </Container>
+      <div className={styles.forum_list}>
+        <Container>
+          {
+            isLoading
+              ?
+                <Loader/>
+              :
+                (
+                  forumList.length === 0
+                  ?
+                    <span>No forums yet...</span>
+                  :
+                    forumList.map(forum =>
+                      <div key={forum.id} className={styles.forum_list_item}>
+                        <ForumInfo
+                          id={forum.id}
+                          topic={forum.topic}
+                          creator={forum.creator}
+                          creatorUsername={forum.creatorUsername}
+                        />
+                      </div>
+                )
+            )
+          }
+        </Container>
+      </div>
     </>
   )
 }

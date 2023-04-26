@@ -1,3 +1,7 @@
+.forum_list {
+  max-width: 40%;
+}
+
 .forum_list_item {
   margin: 10px;
 }

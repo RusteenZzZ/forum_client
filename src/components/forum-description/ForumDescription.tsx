@@ -11,12 +11,14 @@ interface ForumDescriptionProps {
 
 const ForumDescription: FC<ForumDescriptionProps> = ({forum}) => {  
   return (
-    <Container>
-      <h1>{forum.topic}</h1>
-      <span>Created by: {forum.creatorUsername}</span>
-      <HorizontalLine/>
-      <div>{forum.description}</div>
-    </Container>
+    <div className={styles.forumDescription}>
+      <Container>
+        <h1>{forum.topic}</h1>
+        <span>Created by: {forum.creatorUsername}</span>
+        <HorizontalLine/>
+        <div>{forum.description}</div>
+      </Container>
+    </div>
   )
 }
 
