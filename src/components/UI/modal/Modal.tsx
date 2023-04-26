@@ -5,16 +5,19 @@ import Container from '../../container/Container'
 import InnerContainer from '../../inner-container/InnerContainer'
 import Input from '../text-input/Input'
 import Button from '../button/Button'
+import CreateMessageRequest from '../../../models/request/CreateMessageRequest'
 
 interface ModalProps {
   setIsVisible: (arg: boolean) => any
+  reply: (arg: CreateMessageRequest) => Promise<any>
+  toMessageId: string
 }
 
-const Modal: FC<ModalProps> = ({setIsVisible}) => {
-  const [reply, setReply] = useState<string>('')
+const Modal: FC<ModalProps> = ({setIsVisible, reply, toMessageId}) => {
+  const [replyText, setReplyText] = useState<string>('')  
 
   const replyChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setReply(e.target.value)
+    setReplyText(e.target.value)
   }
 
   const clickOnBackgroundHandler = () => {
@@ -25,18 +28,21 @@ const Modal: FC<ModalProps> = ({setIsVisible}) => {
     e.stopPropagation()
   }
 
-  console.log(reply);
-  
+  const clickOnReplyBtnHandler = async () => {
+    await reply({text: replyText, toMessage: toMessageId})
+    setIsVisible(false)
+  }
+    
   return (
     <div className={styles.modal} onClick={clickOnBackgroundHandler}>
       <div className={styles.modalBody} onClick={clickOnModalHandler}>
         <Container>
           <InnerContainer>
             <div className={styles.modalItem}>
-              <Input placeholder="Type here..." value={reply} onChange={replyChangeHandler}/>
+              <Input placeholder="Type here..." value={replyText} onChange={replyChangeHandler}/>
             </div>
             <div className={styles.modalItem}>
-              <Button text="Reply" onClick={() => 5}/>
+              <Button text="Reply" onClick={clickOnReplyBtnHandler}/>
             </div>
           </InnerContainer>
         </Container>

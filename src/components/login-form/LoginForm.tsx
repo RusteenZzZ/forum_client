@@ -31,7 +31,6 @@ const LoginForm: FC = () => {
   }
 
   const {loading, isLoading, error} = useLoading(login)
-  console.log(isLoading);
   
   return (
     <div className={styles.loginForm}>

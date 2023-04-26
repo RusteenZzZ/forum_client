@@ -1,6 +1,7 @@
 interface CreateMessageRequest {
-  forumId: string
   text: string
+  forumId?: string
+  toMessage?: string
 }
 
 export default CreateMessageRequest

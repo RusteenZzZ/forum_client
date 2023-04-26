@@ -1,10 +1,10 @@
 import React, { FC } from 'react'
 
-import HorizontalLine from '../horizontal-line/HorizontalLine'
 import IMessage from '../../models/IMessage'
 import styles from './Message.module.css'
 import InnerContainer from '../inner-container/InnerContainer'
 import Button from '../UI/button/Button'
+import { useNavigate, useParams } from 'react-router-dom'
 
 interface MessageProps {
   message: IMessage
@@ -12,12 +12,20 @@ interface MessageProps {
 }
 
 const Message: FC<MessageProps> = ({message, replyClickHandler}) => {
+  const navigate = useNavigate()
+  const params = useParams()
+  
+  const viewRepliesClickHandler = () => {
+    console.log(params);
+    console.log(message.id);
+    
+    navigate(`/forums/${params.forumId}/${message.id}`)
+  }
+
   return (
     <InnerContainer>
       <h1>{message.authorUsername}</h1>
-      <span
-        className={styles.messageText}
-      >
+      <span className={styles.messageText}>
         {message.text}
       </span>
       <div className={styles.btns}>
@@ -25,7 +33,7 @@ const Message: FC<MessageProps> = ({message, replyClickHandler}) => {
           <Button text='Reply' onClick={replyClickHandler}/>
         </div>
         <div className={styles.btn}>
-          <Button text='View replies' onClick={() => 5}/>
+          <Button text='View replies' onClick={viewRepliesClickHandler}/>
         </div>
       </div>
     </InnerContainer>
