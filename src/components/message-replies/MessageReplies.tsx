@@ -84,12 +84,7 @@ const MessageReplies: FC = () => {
           ?
             <Loader/>
           :
-            replyList.length > 0
-              ?
-                <MessageList messages={replyList}/>
-              :
-                <>
-                </>
+            <MessageList messages={replyList}/>
       }
     </>
   )
